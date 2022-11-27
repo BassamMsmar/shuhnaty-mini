@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card-header ">
+
+    <form method="GET" class="w-100">
+
+        <div class="btn btn-light">
+
+
+
+          <!-- {{ myFilter.form.as_p }} -->
+            الشركة: {{ myFilter.form.company }}
+            المندوب: {{ myFilter.form.delegate }}
+            المحاسب: {{ myFilter.form.accountant }}
+            من : {{ myFilter.form.start_date  }}
+            الى: {{ myFilter.form.end_date  }}
+            
+        </div>
+        <input class="btn btn-primary " type="submit" value="فلترة"></a>
+    </form>
+
+</div>
+
+<!-- جدول للعرض -->
+<div class="card shadow mb-4">
+    <!-- <div class="card-header py-3"></div> -->
+    <form action="{% url 'check_list' %}" method="POST">
+        {% csrf_token %}
+    <div class="card-body">
+            <div class="table-responsive ">
+            <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>رقم السند </th>
+                        <th>السائق</th>
+                        <th> المسار</th>
+                        <th>المبلغ</th>
+                        <th>المصدر</th>
+                        <th>التاريخ</th>
+                        <th>المندوب</th>
+                        <th>الصندوق</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in catch_receipt %}
+                    <tr>
+                        <td><input type="checkbox" name="{{ item.catchReceipt_id }}" id="check"></td>
+                        <td><a href="{% url 'catch_receipt_details' item.catchReceipt_id%}">{{ item.catchReceipt_id }}</a></td>
+                        <td><a href="{% url 'driver_details' item.driver.pk%}">{{ item.driver }}</a></td>
+                        <td> من: {{ item.source }} -- الى: {{ item.destination }} </td>
+                        <td>{{ item.total_amount }}</a></td>
+                        <td>{{ item.company}} </td>
+                        <td>{{ item.date|date:"d-m-Y" }} </td>
+                        <td>{{ item.delegate}} </td>
+                        <td>{{ item.accountant }}</td>
+
+                        
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+        <input class="btn btn-primary " type="submit" value="'طباعة"></a>
+        </form>
+        
+    </div>
+</div>
+{% endblock %}

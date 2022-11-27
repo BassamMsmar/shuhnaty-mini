@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+
+
+
+
+{% block item %}
+
+<!-- butten add -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"><a href="{% url 'add_driver'%}"
+        class="d-none d-inline-block btn btn-primary shadow-sm"><i
+            class="fas fa-download fa-sm text-white-50"></i> إضافة سائق
+    </a></h1>
+    
+</div>
+
+{% endblock %}
+
+
+
+
+{% block content %}
+
+<!-- جدول للعرض -->
+<div class="card shadow mb-4">
+    
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered text-center " id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>رقم التسلسلي</th>
+                        <th>الاسم </th>
+                        <th>الجنسية</th>
+                        <th>رقم الهاتف </th>
+                        <th>رقم الهوية</th>
+                        <th>رقم اللوحة</th>
+                        <th>نوع السيارة</th>
+                    </tr>
+                </thead>
+              
+                <tbody>
+                    {% for driver in drivers %}
+                    <tr>
+                        <td><a href="{% url 'driver_details' driver.pk %}">{{ driver.driver_id }}</a> </td>
+                        <td>{{ driver.driver_name }}</a> </td>
+                        <td>{{ driver.driver_nationality }} </td>
+                        <td>{{ driver.driver_phone_number }} </td>
+                        <td>{{ driver.Identification_Number }} </td>
+                        <td>{{ driver.truck_plate_number }} </td>
+                        <td>{{ driver.Vehicle_Type }} </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

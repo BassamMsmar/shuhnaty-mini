@@ -1,0 +1,36 @@
+{% extends 'base.html'  %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+    <div class="card  m-5 shadow-lg p-2 bg-body rounded" style="max-width: 460px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{ drivers.Identification_photo.url }}" class="img-fluid rounded-start" alt="...">
+                <h5 class="card-title">SN: '>>>{{ drivers.driver_id }}<<<<'</h5>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Name  : {{ drivers.driver_name }}</h5>
+                    <h5 class="card-title">ID    :{{drivers.Identification_Number }}</h5>
+                    <h5 class="card-title">Nationality : {{ drivers.driver_nationality }}</h5>
+                    <h5 class="card-title">Phone    : {{ drivers.driver_phone_number }}</h5>
+                    <h5 class="card-title">Plate No : {{ drivers.truck_plate_number }}</h5>
+                    <h5 class="card-title">OId No   : {{ drivers.Owner_car_id_number }}</h5>
+                    <h5 class="card-title">VehicleType : {{ drivers.Vehicle_Type }}</h5>
+                </div>
+            </div>
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <a class="btn btn-outline-secondary" href="{% url 'edit_driver' drivers.pk %}">Edit</a>
+                <a class="btn btn-outline-secondary" href="#">Download PDF</a>
+                <a class="btn btn-outline-danger" href="{% url 'delete_driver' drivers.pk %}">Delete</a>
+
+
+            </div>
+
+        </div>
+    </div>
+
+{% endif %}
+{% endblock %}
+
